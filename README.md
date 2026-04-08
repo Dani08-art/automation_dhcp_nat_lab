@@ -162,5 +162,5 @@ L2 switches are not directly managed via SSH — connectivity validated end-to-e
 
 ## Author
 
-**Daniel Vargas** — Junior Network Engineer  
+**Daniel Vargas** — Network Engineer  
 [LinkedIn](https://linkedin.com/in/daniel-vargas-644ab820a) | [GitHub](https://github.com/Dani08-art)
