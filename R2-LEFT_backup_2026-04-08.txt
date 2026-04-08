@@ -1,0 +1,143 @@
+Building configuration...
+
+Current configuration : 1809 bytes
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R2-LEFT
+!
+boot-start-marker
+boot-end-marker
+!
+aqm-register-fnf
+!
+enable secret 5 $1$43dk$8IPL7/FGLCYq9EbjJzPLI1
+!
+no aaa new-model
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+no ip domain lookup
+ip domain name lab.local
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+username admin privilege 15 secret 5 $1$7WhN$kXNrAo9AC91bCZ24T6K990
+!
+redundancy
+!
+!
+ip ssh version 2
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 2.2.2.2 255.255.255.255
+!
+interface Ethernet0/0
+ ip address 10.0.12.2 255.255.255.252
+!
+interface Ethernet0/1
+ no ip address
+!
+interface Ethernet0/1.10
+ description VLAN-10
+ encapsulation dot1Q 10
+ ip address 10.10.0.1 255.255.255.0
+ ip helper-address 1.1.1.1
+!
+interface Ethernet0/1.20
+ description VLAN-20
+ encapsulation dot1Q 20
+ ip address 10.20.0.1 255.255.255.0
+ ip helper-address 1.1.1.1
+!
+interface Ethernet0/1.90
+ description VLAN-90
+ encapsulation dot1Q 90
+ ip address 10.0.21.1 255.255.255.252
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+router ospf 1
+ passive-interface Ethernet0/1
+ passive-interface Ethernet0/1.10
+ passive-interface Ethernet0/1.20
+ passive-interface Ethernet0/1.90
+ passive-interface Loopback0
+ network 2.2.2.2 0.0.0.0 area 0
+ network 10.0.12.0 0.0.0.3 area 0
+ network 10.0.21.0 0.0.0.3 area 0
+ network 10.10.0.0 0.0.0.255 area 0
+ network 10.20.0.0 0.0.0.255 area 0
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login local
+ transport input ssh
+!
+!
+end
